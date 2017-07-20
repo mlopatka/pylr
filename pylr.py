@@ -48,7 +48,7 @@ def fit_parametric(data, dist_type):
                    'logistic', 'nbinom', 'norm', 'poisson', 'unif', 't', 'exponweib']
 
     if dist_type not in scipy_dists:
-        raise ValueError('parametric density function must be one %s' % scipy_dists)
+        raise ValueError('parametric density function must be one of: %s' % scipy_dists)
 
     mydist = getattr(sts, dist_type)  # instantiate an empty distribution object of type scipy.stats.$dist_type
     param = mydist.fit(data)

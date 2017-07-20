@@ -1,3 +1,6 @@
+# manual exclusion
+scratch.py
+
 # IDE files
 *.idea
 .idea/
