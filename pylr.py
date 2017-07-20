@@ -52,10 +52,21 @@ def fit_parametric(data, dist_type):
 
     mydist = getattr(sts, dist_type)  # instantiate an empty distribution object of type scipy.stats.$dist_type
     param = mydist.fit(data)
-    mydist = getattr(sts, dist_type)([i for i in param])
-    #  this is broken,
-    #  must disambiguate between distributions that require multiple parameters and
-    #  multivariate parameters passed to a distribution of higher than dimension 1
+    # print [i for i in param]
+
+    if len(param) == 0:
+        mydist = getattr(sts, dist_type)()
+    elif len(param) == 1:
+        mydist = getattr(sts, dist_type)(param[0])
+    elif len(param) == 2:
+        mydist = getattr(sts, dist_type)(param[0], param[1])
+    elif len(param) == 3:
+        mydist = getattr(sts, dist_type)(param[0], param[1], param[2])
+    elif len(param) == 4:
+        mydist = getattr(sts, dist_type)(param[0], param[1], param[2], param[3])
+    else:
+        raise ValueError('parameter/distribution mismatch when fitting data!')
+
     return mydist
 
 # TODO: add goodness of fit metrics iff specific distributions are found and warnign otherwise:
